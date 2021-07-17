@@ -9,26 +9,32 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         List<String> str = Arrays.asList(scanner.nextLine().trim().split(" "));
-        List<Word> words = createListOfWorks(str);
+        Map<String, Integer> words = createListOfWorks(str);
 
-        sortByCountOfVowels(words);
-
-        for(Word word: words){
-            System.out.println(word.toString());
-        }
+        System.out.println("Word=countOfVowels");
+        System.out.println(sortByCountOfVowels(words));
     }
 
-    private static void sortByCountOfVowels(List<Word> words) {
-        Collections.sort(words, new Comparator<Word>() {
+    private static Map<String, Integer> sortByCountOfVowels(Map<String, Integer> unsortMap) {
+        List<Map.Entry<String, Integer>> list = new LinkedList<Map.Entry<String, Integer>>(unsortMap.entrySet());
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>()
+        {
             @Override
-            public int compare(Word w1, Word w2) {
-                return Integer.compare(w2.numOfVowels, w1.numOfVowels);
+            public int compare(Map.Entry<String, Integer> w1, Map.Entry<String, Integer> w2) {
+                return w2.getValue() - w1.getValue();
             }
         });
+        Map<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+        for (Map.Entry<String, Integer> entry : list)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
     }
 
-    private static List<Word> createListOfWorks(List<String> str) {
-        List<Word> words = new ArrayList<>();
+    private static Map<String, Integer> createListOfWorks(List<String> str) {
+        Map<String, Integer> words = new HashMap<>();
 
         int count = 0;
         for(String w: str){
@@ -38,7 +44,7 @@ public class Main {
                 w = capitalizeFirstVowel(w, matcher.start(), matcher.end());
                 count = countOfVowels(matcher);
             }
-            words.add(new Word(w, count));
+            words.put(w, count);
         }
 
         return words;
