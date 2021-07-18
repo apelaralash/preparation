@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+//Utils
 public class Functions {
     static int countOfTriples(String str) {
         Set<String> symbols = getUniqueSymbols(str);

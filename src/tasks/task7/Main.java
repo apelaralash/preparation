@@ -5,19 +5,21 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Scanner console = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
+
         System.out.print("Enter the volume of the safe: ");
-        Safe safe = new Safe(console.nextInt());
+        Safe safe = new Safe(scanner.nextInt());
+
         System.out.print("Enter the number of items: ");
-        int num = console.nextInt();
+        int num = scanner.nextInt();
 
         for (int i = 0; i < num; i++) {
             System.out.println("");
             System.out.println("Item " + (i + 1) + ": ");
             System.out.print("Enter worth: ");
-            int w = console.nextInt();
+            int w = scanner.nextInt();
             System.out.print("Enter volume: ");
-            int v = console.nextInt();
+            int v = scanner.nextInt();
             safe.setItems(w, v);
         }
 

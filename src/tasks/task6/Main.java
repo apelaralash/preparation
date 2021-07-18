@@ -1,40 +1,30 @@
 package tasks.task6;
 
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args){
-        Scanner console = new Scanner(System.in);
-        String number = console.nextLine();
+        Scanner scanner = new Scanner(System.in);
 
-        String[] numZero = new String[]{"  000  ", " 0   0 ", "0     0", "0     0", "0     0", " 0   0 ", "  000  "};
-        String[] numOne = new String[] {" 1 ", "11 ", " 1 ", " 1 ", " 1 ", " 1 ", "111"};
-        String[] numTwo = new String[] {" 222 ", "2   2", "2  2 ", "  2  ", " 2   ", "2    ", "22222"};
-        String[] numThree = new String[] {" 333 ", "3   3", "    3", " 333 ", "    3", "3   3", " 333 "};
-        String[] numFour = new String[] {"   4 ", "  44 ", " 4 4 ", "4  4 ", "44444", "   4 ", "   4 "};
-        String[] numFive = new String[] {" 5555", "5    ", "5    ", " 555 ", "    5", "    5", "5555 "};
-        String[] numSix = new String[] {" 666 ", "6   6", "6    ", "6666 ", "6   6", "6   6", " 666 "};
-        String[] numSeven = new String[] {"77777", "    7", "   7 ", "  7  ", " 7   ", "7    ", "7    "};
-        String[] numEight = new String[] {" 888 ", "8   8", "8   8", " 888 ", "8   8", "8   8", " 888 "};
-        String[] numNine = new String[] {" 9999", "9   9", "9   9", " 9999", "    9", "    9", "    9"};
+        System.out.println("Enter your number:");
+        String number = scanner.nextLine();
 
-        for(int i = 0; i < 7; i++){
-            for (int j = 0; j < number.length(); j++) {
-                switch (number.charAt(j)) {
-                    case '0' -> System.out.print(numZero[i] + "  ");
-                    case '1' -> System.out.print(numOne[i] + "  ");
-                    case '2' -> System.out.print(numTwo[i] + "  ");
-                    case '3' -> System.out.print(numThree[i] + "  ");
-                    case '4' -> System.out.print(numFour[i] + "  ");
-                    case '5' -> System.out.print(numFive[i] + "  ");
-                    case '6' -> System.out.print(numSix[i] + "  ");
-                    case '7' -> System.out.print(numSeven[i] + "  ");
-                    case '8' -> System.out.print(numEight[i] + "  ");
-                    case '9' -> System.out.print(numNine[i] + "  ");
-                    default -> j = number.length();
-                }
-            }
-            System.out.print("\n");
+        BufferedImage image = new BufferedImage(288, 64, BufferedImage.TYPE_INT_RGB);
+        Graphics g = image.getGraphics();
+        g.setFont(new Font("Dialog", Font.PLAIN, 16));
+        Graphics2D graphics = (Graphics2D) g;
+        graphics.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING,
+                RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        graphics.drawString(number, 6, 24);
+
+        for (int y = 0; y < 64; y++) {
+            StringBuilder sb = new StringBuilder();
+            for (int x = 0; x < 288; x++)
+                sb.append(image.getRGB(x, y) == -16777216 ? " " : image.getRGB(x, y) == -1 ? "*" : "*");
+            if (sb.toString().trim().isEmpty()) continue;
+            System.out.println(sb);
         }
     }
 }
